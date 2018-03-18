@@ -14,11 +14,17 @@ private:
     float zahirliin(float);
     //public хандалтын түвшинтэй ажилтны мэдээллийн боловсруулах гишүүн функц зарлаж байна.
 public:
+    employee();
+    employee(int , char *, char *, float );
     void setdata();
     void getdata();
+    bool before(employee &a);
+    bool idshalgah( int);
     float timeSum(float &);
     float showData();
     void update(employee &a);
+    void updatename(employee &a);
+    // ~employee();
 };
 //menu дэлгэцлэх функц.
 void head()
@@ -28,8 +34,47 @@ void head()
     cout << "3. ajillasan tsag nemeh " << "\n";
     cout << "4.hevleh"<< "\n";
     cout << "5.Sort"<< "\n";
-    cout << "6.Exit"<< "\n";
+    cout << "6.SortName"<< "\n";
+    cout << "7.Exit"<< "\n";
 }
+employee a2[5];
+employee::employee()
+{
+    char n[17], m[17];
+    number = 1;
+    a2[h].number = 1;
+    strcpy(m, "Bat");
+    name = new char[strlen(m)+1];
+    strcpy(name, m);
+    strcpy(n, "ajil");
+    ajil = new char[strlen(n)+1];
+    strcpy(ajil, n);
+    time = 120;
+    h++;
+}
+bool employee::idshalgah(int y)
+{
+    if(number == y)
+    return true;
+    else return false;
+}
+employee::employee(int x, char *n, char *m, float y)
+{
+    number = x;
+    a2[h].number = x;
+    name = new char[strlen(n)+1];
+    strcpy(name, n);
+    ajil = new char[strlen(n)+1];
+    strcpy(ajil, m);
+    time = y;
+    h++;
+}
+/*employee::~employee()
+{
+    cout<<"The object "<< name << ajil <<" is deleted;"<<endl;
+    delete name;
+    delete ajil;
+}*/
 //объектынх аа гишүүн өгөгдөлрүү гараас утга оноохын тулд классын getData гэсэн функцад хандан онооно.
 void employee::getdata()
 {
@@ -62,6 +107,26 @@ float employee::timeSum(float &ax)
 void employee::setdata()
 {
     cout << setw(3) << number << setw(12) << name << setw(12) << ajil << setw(6) << time << setw(10) <<"\n" ;
+}
+bool employee::before(employee &a)
+{
+    if(strcmp(name,a.name) >= 0)
+    return true;
+    else return false;
+}
+
+void sortName(employee a[], int m)
+{
+    for(int j = 0; j < m; j++)
+    {
+        for(k = 0; k < m -j - 1; k++)
+        {
+            if(a[k].before(a[k+1]) == 1)
+            {
+                a[k].updatetime(a[k+1]);
+            }
+        }
+    }
 }
 //ажилтны цалингаар нь эрэмбэлэх функц
 void sortTime(employee a[], int m)
@@ -96,21 +161,58 @@ void employee::update(employee &a)
     strcpy(ajil,a.ajil);
     strcpy(a.ajil,z1);
 }
+void employee::updatename(employee &a)
+{
+    int q;
+    q = number;
+    number = a.number;
+    a.number = q;
+    char change[20];
+    strcpy(change,name);
+    strcpy(name,a.name);
+    strcpy(a.name,change);
+    float changee;
+    changee = time;
+    time = a.time;
+    a.time = changee;
+    char z1[20];
+    strcpy(z1,ajil);
+    strcpy(ajil,a.ajil);
+    strcpy(a.ajil,z1);
+}
 int main()
 {
-    int n = 0, b = 0, i, j;
-    float c;
-    employee *a1;
-    a1 = new employee[100];
+    int b = 0, i = 0, j, g, number1;
+    char name1[17], ajil1[17];
+    float c, time1;
+    a1 = new employee[5];
+    a1[i] = employee();
+    for(i = 1; i < 5; i++)
+    {
+        cout << "Number: "; cin >> number1;
+        cout << "Name: ";   cin >> name1;
+        cout << "Ajil: ";   cin >> ajil1;
+        cout << "Time: ";   cin >> time1;
+        int key = 0;
+        for(g = 0; g < h; g++)
+        {
+            if(a2[g].idshalgah(number1))
+            key++;
+        }
+        if(key == 0)
+        {
+            a1[i] = employee(number1, name1, ajil1, time1);
+        }
+    }
     head(); //menu дэлгэцлэх функц.
-    while(b != 6)
+    while(b != 7)
     {
         cout << "> "; cin >> b;
-        if(b == 1){
+       /* if(b == 1){
             cout << "heden ajiltnii medeelel oruulah ve? "; cin >> n;
             for(i = 0;i < n; i++)
                 a1[i].getdata();//ажилтны мэдээллийг гараас оруулахын тулд объектоор нь read гэсэн гишүүн функцад хандаж байна.
-        }
+        }*/
         if(b == 2)
             for(i = 0, j = i;i < n; i++)
                 cout << ++j << " dugaartai ajiltnii tsalin: "<< a1[i].showData() << "\n"; //ажилтны цалинг бодохын тулд объектоор нь showData гэсэн гишүүн функцад хандаж байна.
@@ -131,6 +233,9 @@ int main()
         }
         if(b == 5)
             sortTime(a1, n);//ажилтны цалингаар нь эрэмбэлэх функцад хандаж байна.
+        if(b == 6)
+            for(i = 0;i < 5; i++)
+                sortName(a1, 5);
     }
     delete[]a1;
 }
