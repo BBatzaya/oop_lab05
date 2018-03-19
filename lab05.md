@@ -196,11 +196,17 @@ int main()
         for(g = 0; g < h; g++)
         {
             if(a2[g].idshalgah(id1))
-            key++;
-        }
+            {
+                key++;
+                break;
+            }
         if(key == 0)
         {
             a1[i] = employee(id1, name1, ajil1, time1);
+        }else
+        {
+                cout << "ID-giin dugaar dawhtsaj bna.";
+                i--;
         }
     }
     head(); //menu дэлгэцлэх функц.
