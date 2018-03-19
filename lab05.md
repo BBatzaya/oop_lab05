@@ -7,7 +7,7 @@ int h = 0, k = 0;
 class employee{
     //private хандалтын түвшинтэй ажилтны 4н гишүүн өгөгдөл, 1 гишүүг функц зарлаж байна.
 private:
-    int number;
+    int id;
     char name[20];
     char ajil[20];
     float time;
@@ -37,12 +37,12 @@ void head()
     cout << "6.SortName"<< "\n";
     cout << "7.Exit"<< "\n";
 }
-employee a2[5];
+employee a2[5];//шинэ ажилтан оруулахдаа ID давхцуулахгүй байлгахын тулд оруулж байгаа ажилтан бүрийн зөвхөн ID оруулна.
 employee::employee()
 {
     char n[17], m[17];
-    number = 1;
-    a2[h].number = 1;
+    id = 1;
+    a2[h].id = 1;
     strcpy(m, "Bat");
     name = new char[strlen(m)+1];
     strcpy(name, m);
@@ -54,14 +54,14 @@ employee::employee()
 }
 bool employee::idshalgah(int y)
 {
-    if(number == y)
+    if(id == y)
     return true;
     else return false;
 }
 employee::employee(int x, char *n, char *m, float y)
 {
-    number = x;
-    a2[h].number = x;
+    id = x;
+    a2[h].id = x;
     name = new char[strlen(n)+1];
     strcpy(name, n);
     ajil = new char[strlen(n)+1];
@@ -75,16 +75,15 @@ employee::employee(int x, char *n, char *m, float y)
     delete name;
     delete ajil;
 }*/
-//объектынх аа гишүүн өгөгдөлрүү гараас утга оноохын тулд классын getData гэсэн функцад хандан онооно.
-void employee::getdata()
+//объектынх аа гишүүн өгөгдөлрүү гараас утга оноохын тулд классын setData гэсэн функцад хандан онооно.
+/*void employee::setdata()
 {
-    number = ++h;
-    cout << "Number: " << number << "\n";
+    id = ++h;
+    cout << "id: " << id << "\n";
     cout << "name: ";   cin >> name;
     cout << "ajil: ";   cin >> ajil;
     cout << "time: ";   cin >> time;
-}
-
+}*/
 float employee::zahirliin(float m)
 {
     return 100000 + 5000*m;
@@ -104,7 +103,7 @@ float employee::timeSum(float &ax)
     {time = time + ax; return true;}
     else return false;//хэрэв 24 өөс их 0 ээс бага тоо оруулсан бол 0 гэсэн утга буцаана.
 }
-void employee::setdata()
+void employee::getdata()
 {
     cout << setw(3) << number << setw(12) << name << setw(12) << ajil << setw(6) << time << setw(10) <<"\n" ;
 }
@@ -164,8 +163,8 @@ void employee::update(employee &a)
 void employee::updatename(employee &a)
 {
     int q;
-    q = number;
-    number = a.number;
+    q = id;
+    id = a.id;
     a.number = q;
     char change[20];
     strcpy(change,name);
@@ -182,26 +181,26 @@ void employee::updatename(employee &a)
 }
 int main()
 {
-    int b = 0, i = 0, j, g, number1;
+    int b = 0, i = 0, j, g, id1;
     char name1[17], ajil1[17];
     float c, time1;
     a1 = new employee[5];
     a1[i] = employee();
     for(i = 1; i < 5; i++)
     {
-        cout << "Number: "; cin >> number1;
+        cout << "id: "; cin >> id1;
         cout << "Name: ";   cin >> name1;
         cout << "Ajil: ";   cin >> ajil1;
         cout << "Time: ";   cin >> time1;
         int key = 0;
         for(g = 0; g < h; g++)
         {
-            if(a2[g].idshalgah(number1))
+            if(a2[g].idshalgah(id1))
             key++;
         }
         if(key == 0)
         {
-            a1[i] = employee(number1, name1, ajil1, time1);
+            a1[i] = employee(id1, name1, ajil1, time1);
         }
     }
     head(); //menu дэлгэцлэх функц.
@@ -229,7 +228,7 @@ int main()
         if(b == 4)
         {
             for(i = 0;i < n; i++)
-                a1[i].setdata();//гараас оруулсан мэдээллээ хэвлэхийн тулд объектоор нь setdata гэсэн гишүүн функцад хандаж байна.
+                a1[i].getdata();//гараас оруулсан мэдээллээ хэвлэхийн тулд объектоор нь setdata гэсэн гишүүн функцад хандаж байна.
         }
         if(b == 5)
             sortTime(a1, n);//ажилтны цалингаар нь эрэмбэлэх функцад хандаж байна.
