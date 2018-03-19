@@ -3,7 +3,7 @@
 #include<iomanip>
 #include<cstring>
 using namespace std;
-int h = 0, k = 0;
+int h = 0, k = 0, _ID[5];//шинэ ажилтан оруулахдаа ID давхцуулахгүй байлгахын тулд оруулж байгаа ажилтан бүрийн зөвхөн ID оруулна.
 class employee{
     //private хандалтын түвшинтэй ажилтны 4н гишүүн өгөгдөл, 1 гишүүг функц зарлаж байна.
 private:
@@ -19,12 +19,10 @@ public:
     void setdata();
     void getdata();
     bool before(employee &a);
-    bool idshalgah( int);
     float timeSum(float &);
     float showData();
     void update(employee &a);
     void updatename(employee &a);
-    // ~employee();
 };
 //menu дэлгэцлэх функц.
 void head()
@@ -37,12 +35,11 @@ void head()
     cout << "6.SortName"<< "\n";
     cout << "7.Exit"<< "\n";
 }
-employee a2[5];//шинэ ажилтан оруулахдаа ID давхцуулахгүй байлгахын тулд оруулж байгаа ажилтан бүрийн зөвхөн ID оруулна.
 employee::employee()
 {
     char n[17], m[17];
     id = 1;
-    a2[h].id = 1;
+    _ID[h] = 1;
     strcpy(m, "Bat");
     name = new char[strlen(m)+1];
     strcpy(name, m);
@@ -52,16 +49,10 @@ employee::employee()
     time = 120;
     h++;
 }
-bool employee::idshalgah(int y)
-{
-    if(id == y)
-    return true;
-    else return false;
-}
 employee::employee(int x, char *n, char *m, float y)
 {
     id = x;
-    a2[h].id = x;
+    _ID[h]  = x;
     name = new char[strlen(n)+1];
     strcpy(name, n);
     ajil = new char[strlen(n)+1];
@@ -69,12 +60,6 @@ employee::employee(int x, char *n, char *m, float y)
     time = y;
     h++;
 }
-/*employee::~employee()
-{
-    cout<<"The object "<< name << ajil <<" is deleted;"<<endl;
-    delete name;
-    delete ajil;
-}*/
 //объектынх аа гишүүн өгөгдөлрүү гараас утга оноохын тулд классын setData гэсэн функцад хандан онооно.
 /*void employee::setdata()
 {
@@ -195,7 +180,7 @@ int main()
         int key = 0;
         for(g = 0; g < h; g++)
         {
-            if(a2[g].idshalgah(id1))
+            if(    _ID[h]  == id1)
             {
                 key++;
                 break;
